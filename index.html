@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/calc.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="jumbotron container-fluid">
+        <div class="navbar bg-light">
+            <h1 id="title">Calculator</h1>
+        </div>
+        <p id="description">"This is a responsive and dynamic calculator which takes one operand at a time and "=" to display the result."</p>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 jumbotron">
+                <textarea id="display" placeholder="0" value=""> </textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3"><button type="button" id="clear" class="btn btn-light" onclick="clearScreen()">C</button></div>
+            <div class="col-3"><button type="button" class="btn btn-light" onclick="backSp()">⬅</button></div>
+            <div class="col-3"><button type="button" class="btn btn-light" onclick="insert('.')">.</button></div>
+            <div class="col-3"><button type="button" class="btn btn-light" onclick="insert('*')">✖️</button></div>
+        </div>
+        <div class="row">
+            <div class="col-3"><button type="button" class="btn btn-light" onclick="insert('7')">7</button></div>
+            <div class="col-3"><button type="button" class="btn btn-light" onclick="insert('8')">8</button></div>
+            <div class="col-3"><button type="button" class="btn btn-light" onclick="insert('9')">9</button></div>
+            <div class="col-3"><button type="button" class="btn btn-light" onclick="insert('/')">➗</button></div>
+        </div>
+        <div class="row">
+            <div class="col-3"><button type="button" class="btn btn-light" onclick="insert('4')" >4</button></div>
+            <div class="col-3"><button type="button" class="btn btn-light" onclick="insert('5')">5</button></div>
+            <div class="col-3"><button type="button" class="btn btn-light" onclick="insert('6')">6</button></div>
+            <div class="col-3"><button id="subtract" type="button" class="btn btn-light" onclick="insert('-')">➖</button></div>
+        </div>
+        <div class="row">
+            <div class="col-3"><button type="button" class="btn btn-light" onclick="insert('1')">1</button></div>
+            <div class="col-3"><button type="button" class="btn btn-light" onclick="insert('2')">2</button></div>
+            <div class="col-3"><button type="button" class="btn btn-light" onclick="insert('3')">3</button></div>
+            <div class="col-3"><button id="add" type="button" class="btn btn-light" onclick="insert('+')">➕</button></div>
+        </div>
+        <div class="row">
+            <div class="col-3"><button type="button" class="btn btn-light" onclick="insert('0')">0</button></div>
+            <div class="col-3"><button type="button" class="btn btn-light" onclick="insert('00')">00</button></div>
+            <button type="button" id="equal" class="col-6 btn btn-primary btn-lg" onclick="equal()">=</button>
+        </div>    
+    </div>
+    <!-- <script type="module" src="js/calc.js"></script> -->
+    <script src="https://app.zenclass.in/sheets/v1/js/zen/suite/bundle.js"></script>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        'use strict';
+
+// let func = ['*','+','-','/'];
+// function insert(data){
+//     document.getElementById("display").value += data; 
+//     editView(document.getElementById("display").value);
+// }
+console.log("JS is triggered!")
+function insert(data){
+    document.getElementById("display").value += data;
+    editView(document.getElementById("display").value);
+}
+
+function editView(exp){
+    document.getElementById("display").innerHTML = exp;
+}
+
+function equal(){
+    var exp = document.getElementById("display").value;
+    if(exp)
+        document.getElementById("display").value = evaluate(exp);  
+    editView(document.getElementById("display").value)    
+}
+
+function backSp(){
+    let exp = document.getElementById("display").value;
+    let len= exp.length;
+    exp = exp.substring(0,len-1);
+    document.getElementById("display").value = exp;
+    editView(exp);
+}
+function clearScreen(){
+    document.getElementById("display").value = '';
+    editView('');
+    console.log("C was clicked!");
+}
+function evaluate(exp){
+    let res = 0;
+    if(exp.includes('+'))
+        res = add(exp.split("+").map(Number))
+    else if(exp.includes('*'))
+        res = mul(exp.split("*").map(Number))
+    else if(exp.includes('-'))
+        res = sub(exp.split("-").map(Number))
+    else if(exp.includes('/'))
+        res = div(exp.split("/").map(Number))        
+    return res;  
+}; 
+let add = (arr) => {
+    let sum =0;
+    sum = arr[0]+arr[1];
+    return sum;
+}
+let mul = (arr) => {
+    let p =1;
+    p = arr[0]*arr[1];
+    return p;
+}
+let sub = (arr) => {
+    let sum =0;
+    sum = arr[0]-arr[1];
+    return sum;
+}
+let div = (arr) => {
+    let d =1;
+    d = arr[0]/arr[1];
+    return d;
+}
+    </script>
+</body>
+</html>
